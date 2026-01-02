@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Am I Menstruating? – An Interactive Fiqh Guide</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f4f6fb;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #ffffff;
+      max-width: 720px;
+      width: 100%;
+      padding: 28px 22px 36px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 26px;
+      color: #2c3e50;
+    }
+
+    .intro {
+      font-size: 16px;
+      color: #555;
+      margin: 12px 0 20px;
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      background: #fff3cd;
+      color: #856404;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .step {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    small {
+      color: #666;
+    }
+
+    button {
+      width: 100%;
+      max-width: 320px;
+      margin: 8px auto;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #4a90e2;
+      color: #ffffff;
+      display: block;
+    }
+
+    button.secondary {
+      background: #b2bec3;
+      color: #2d3436;
+    }
+
+    button.restart {
+      background: #00b894;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .result {
+      font-weight: 600;
+      font-size: 18px;
+      margin: 20px 0;
+      color: #2d3436;
+    }
+
+    .why {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .why a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+
+    .closing {
+      margin-top: 40px;
+      font-size: 15px;
+      color: #555;
+      font-style: italic;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+      }
+      .intro {
+        font-size: 15px;
+      }
+      button {
+        font-size: 15px;
+        padding: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- CONFIG -->
+  <script>
+    const NOTES_LINK = "https://docs.google.com/document/d/1KluWoYXpWbWeRIQUk61enj87QOlu_fBIVAOxJESKsus/edit?usp=sharing";
+  </script>
+
+  <h1>Am I Menstruating? – An Interactive Fiqh Guide</h1>
+
+  <p class="intro">
+    This interactive guide helps you walk through common questions about bleeding,
+    menstruation, and worship step by step.
+  </p>
+
+  <div class="disclaimer">
+    ⚠️ This guide is for educational purposes only and does not replace asking a
+    qualified scholar, especially for personal or complex situations.
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step active" id="step1">
+    <h3>🟢 You see blood or discharge</h3>
+    <p>Are you pregnant?</p>
+    <button onclick="goTo('pregnantResult')">Yes</button>
+    <button onclick="goTo('step2')">No</button>
+    <button class="secondary" onclick="goTo('step2')">I don’t know</button>
+    <div class="why"><a href="#" onclick="openNotes()">Why?</a></div>
+  </div>
+
+  <div class="step" id="pregnantResult">
+    <p class="result">
+      According to most scholars, this is not menstruation.<br>
+      ➜ You should pray and fast.
+    </p>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <h3>🔷 Bleeding Characteristics</h3>
+    <p>Does your bleeding match menstrual characteristics?</p>
+    <small>(Dark, thick, flowing: black / red / yellow / turbid)</small>
+    <button onclick="spotting()">No</button>
+    <button onclick="goTo('step3')">Yes</button>
+    <button class="secondary" onclick="spotting()">I don’t know</button>
+    <div class="why"><a href="#" onclick="openNotes()">Why?</a></div>
+  </div>
+
+  <div class="step" id="spotting">
+    <p class="result">
+      This is not menstruation.<br>
+      ➜ You should pray.
+    </p>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <h3>🔷 Your School of Thought</h3>
+    <p>Which school of thought do you follow?</p>
+    <button onclick="goTo('hanafi1')">Hanafi</button>
+    <button onclick="goTo('other1')">Other</button>
+    <button class="secondary" onclick="goTo('other1')">I don’t know</button>
+    <div class="why"><a href="#" onclick="openNotes()">Why?</a></div>
+  </div>
+
+  <!-- HANAFI -->
+  <div class="step" id="hanafi1">
+    <h3>🔸 Hanafi School</h3>
+    <p>Has your bleeding continued for 3 full days (72 hours)?</p>
+    <button onclick="hanafiNot()">No</button>
+    <button onclick="goTo('hanafi2')">Yes</button>
+    <button class="secondary" onclick="hanafiNot()">I don’t know</button>
+  </div>
+
+  <div class="step" id="hanafiNot">
+    <p class="result">
+      This is not menstruation.<br>
+      ➜ You should pray.
+    </p>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <div class="step" id="hanafi2">
+    <p>Has your bleeding exceeded 10 days?</p>
+    <button onclick="abnormal()">Yes</button>
+    <button onclick="menstruation()">No</button>
+  </div>
+
+  <!-- OTHER -->
+  <div class="step" id="other1">
+    <h3>🔸 Other Schools</h3>
+    <p>Has your bleeding reached 24 hours?</p>
+    <button onclick="otherNot()">No</button>
+    <button onclick="goTo('other2')">Yes</button>
+    <button class="secondary" onclick="otherNot()">I don’t know</button>
+  </div>
+
+  <div class="step" id="otherNot">
+    <p class="result">
+      This is not menstruation.<br>
+      ➜ You should pray.
+    </p>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <div class="step" id="other2">
+    <p>Has your bleeding exceeded 15 days?</p>
+    <button onclick="abnormal()">Yes</button>
+    <button onclick="menstruation()">No</button>
+  </div>
+
+  <!-- MENSTRUATION -->
+  <div class="step" id="menstruation">
+    <p class="result">
+      This is menstruation.<br>
+      ➜ You stop praying and fasting.
+    </p>
+    <p>Have you now seen dryness or white discharge?</p>
+    <button onclick="goTo('ghusl')">Yes</button>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <!-- ABNORMAL -->
+  <div class="step" id="abnormal">
+    <p class="result">
+      This is abnormal bleeding (Istihāḍah).<br>
+      ➜ You resume prayer.
+    </p>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <!-- GHUSL -->
+  <div class="step" id="ghusl">
+    <h3>🧼 Ghusl</h3>
+    <p class="result">
+      Your menstruation has ended.<br>
+      ➜ Perform ghusl, then pray and fast.
+    </p>
+    <div class="why"><a href="#" onclick="openNotes()">How do I perform ghusl?</a></div>
+    <button class="restart" onclick="restart()">Restart</button>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    May Allah grant you clarity, ease, and acceptance in your worship.
+  </div>
+
+</div>
+
+<script>
+  function goTo(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+  function restart() { goTo('step1'); }
+  function menstruation() { goTo('menstruation'); }
+  function abnormal() { goTo('abnormal'); }
+  function hanafiNot() { goTo('hanafiNot'); }
+  function otherNot() { goTo('otherNot'); }
+  function spotting() { goTo('spotting'); }
+  function openNotes() { window.open(NOTES_LINK, '_blank'); }
+</script>
+
+</body>
+</html>
